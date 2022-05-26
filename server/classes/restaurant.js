@@ -117,8 +117,19 @@ class Kitchen extends Restaurant{
      * @param { string } name The name of the ingredient 
      */
     async GetOneDrink(name){
-        const Drink = await DrinkMenuModel.findOne({ name: name }).exec();
-        return Drink;
+        //const Drink = await DrinkMenuModel.findOne({ drink_name: name }).exec();
+        const Drink = await DrinkMenuModel.aggregate([
+            { $match: { drink_name: name } },
+            {
+                $lookup: {
+                    from: "ingredients",
+                    localField: "ingredients",
+                    foreignField: "_id",
+                    as: "ingredients"
+                }
+            }
+        ]).exec();
+        return Drink.pop();
     }
 
     /**
@@ -142,10 +153,11 @@ class Kitchen extends Restaurant{
      *  The updated drink or a boolean value 
      */
     async UpdateDrink(id, data, returnUpdated = true){
-        const toUpdateDrink = await DrinkMenuModel.findByIdAndUpdate(id, { ...data }).exec();
+        const toUpdateDrink = await DrinkMenuModel.findOneAndUpdate({ drink_name: id }, { ...data }).exec();
+        console.log(toUpdateDrink);
         if(!toUpdateDrink) return false;
         if(!returnUpdated) return true;
-        const updatedDrink = await DrinkMenuModel.findById(id).exec();
+        const updatedDrink = await DrinkMenuModel.findOne({ drink_name: id }).exec();
         return updatedDrink;
 
     }
@@ -157,7 +169,7 @@ class Kitchen extends Restaurant{
      *  The popped element
      */
     async DeleteDrink(id){
-        const deletedItem = await DrinkMenuModel.findByIdAndRemove(id).exec();
+        const deletedItem = await DrinkMenuModel.findOneAndRemove({ drink_name: id }).exec();
         return deletedItem;
     }
 

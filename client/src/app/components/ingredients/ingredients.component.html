@@ -1,4 +1,7 @@
 <div class="wrapper">
+    <div class="create-item">
+        <a routerLink="create" [queryParams]="{ view: 'ingredients' }"><h2>Nuevo Ingrediente</h2></a>
+    </div>
     <div class="gallery-card" *ngIf="getIngredients.length !== 0">
         <common-carddata *ngFor="let Ingredient of getIngredients"
             [ingredientData]="Ingredient"

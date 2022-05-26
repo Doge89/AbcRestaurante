@@ -30,6 +30,10 @@ export class ItemPresentationComponent implements OnInit {
   set setDrink(v: DrinkMenu){ this.Drink = { ...v }; };
   get getDrink(): DrinkMenu { return this.Drink; };
 
+  private IngredientsIds: string[] = []
+  set setIngredientsIds(v: string){ this.IngredientsIds.push(v); }
+  get getIngredientsIds(){ return this.IngredientsIds; }
+
   private CodeName: string = "";
   set setCodeName(v: string){
     if(!v) throw new Error("The value can't be null")
@@ -95,16 +99,40 @@ export class ItemPresentationComponent implements OnInit {
     });
   }
 
+  public HandleDrinkSubmit($event: MouseEvent): void {
+    $event.preventDefault();
+    if(!this.getCodeName){
+      this.DrinkService.CreateDrink(this.getDrink, this.IngredientsIds).subscribe(response => {
+        if(!response.ok) throw new Error(`Status Code: ${response.status}, Message: ${response.statusText}`);
+      })
+      return location.replace("/drinks");
+    }
+
+    this.DrinkService.UpdateDrink(this.CodeName, this.Drink, this.IngredientsIds).subscribe(response => {
+      if(!response.ok) throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
+      return location.replace("/drinks")
+    })
+
+  }
+
+  public HandleDeleteDrink($event: MouseEvent): void{
+    $event.preventDefault();
+    if(!confirm("¿Estas seguro de borrar esta bebida?")) return;
+    this.DrinkService.DeleteDrink(this.CodeName).subscribe(response => {
+      if(!response.ok) throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
+      return location.replace("/drinks")
+    })
+  }
+
   public HandleInput($event: KeyboardEvent): void{
     console.log($event.key);
-    if($event.key !== "Enter") return;
+    if($event.key !== "Shift") return;
     const itemFounded = this.getIngredients.find(ingredient => { 
       return ingredient._id === this.IngredientDrink.nativeElement.value 
     });
     console.info(itemFounded)
     if(!itemFounded) return;
-    this.setIngredientsToDrink = itemFounded;
-    console.log(this.IngredientsToDrink);
+    this.setIngredientsIds = itemFounded._id;
     this.IngredientDrink.nativeElement.value = "";
   }
 

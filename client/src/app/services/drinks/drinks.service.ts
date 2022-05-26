@@ -44,12 +44,13 @@ export class DrinksService {
   /**
    * Request for the creation of a new drink in the menu
    * @param drink The new drink
+   * @param ingredientIds The ingredients
    * @returns
    *  The created drink
    */
-  public CreateDrink(drink: DrinkMenu): Observable<HttpResponse<DrinkMenu>>{
+  public CreateDrink(drink: DrinkMenu, ingredientIds: string[]): Observable<HttpResponse<DrinkMenu>>{
     let Headers: HttpHeaders = this.FnGeneral.CreateHeaders();
-    return this.Http.post<DrinkMenu>(`${SERVER_HOST}${this._root}/createDrink`, { ...drink }, { headers: Headers, withCredentials: true, observe: "response" } )
+    return this.Http.post<DrinkMenu>(`${SERVER_HOST}${this._root}/createDrink`, { ...drink, ingredientIds }, { headers: Headers, withCredentials: true, observe: "response" } )
   }
 
   /**
@@ -59,9 +60,9 @@ export class DrinksService {
    * @returns
    *  The updated item
    */
-  public UpdateDrink(drink_id: string, newValues: DrinkMenu): Observable<HttpResponse<DrinkMenu>>{
+  public UpdateDrink(drink_id: string, newValues: DrinkMenu, ingredientIds: string[]): Observable<HttpResponse<DrinkMenu>>{
     let Headers: HttpHeaders = this.FnGeneral.CreateHeaders();
-    return this.Http.put<DrinkMenu>(`${SERVER_HOST}${this._root}/updateIngredient`, { id: drink_id, newValues }, { headers: Headers, withCredentials: true, observe: "response" })
+    return this.Http.put<DrinkMenu>(`${SERVER_HOST}${this._root}/updateDrink`, { id: drink_id, newValues, ingredientIds }, { headers: Headers, withCredentials: true, observe: "response" })
   }
 
   /**
@@ -72,7 +73,7 @@ export class DrinksService {
    */
   public DeleteDrink(drink_id: string): Observable<HttpResponse<DrinkMenu>>{
     let Headers: HttpHeaders = this.FnGeneral.CreateHeaders();
-    return this.Http.delete<DrinkMenu>(`${SERVER_HOST}${this._root}/deleteIngredient/${drink_id}`, { headers: Headers, withCredentials: true, observe: "response" })
+    return this.Http.delete<DrinkMenu>(`${SERVER_HOST}${this._root}/deleteDrink/${drink_id}`, { headers: Headers, withCredentials: true, observe: "response" })
   }
 
 }

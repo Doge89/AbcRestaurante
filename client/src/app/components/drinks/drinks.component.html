@@ -1,4 +1,7 @@
 <div class="wrapper">
+    <div class="create-item">
+        <a routerLink="create" [queryParams]="{ view: 'drinks' }"><h2>Nueva Bebida</h2></a>
+    </div>
     <div class="gallery-card">
         <common-carddata *ngFor="let Drink of getDrinks"
             [drinkData]="Drink"

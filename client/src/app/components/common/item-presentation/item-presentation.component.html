@@ -60,7 +60,7 @@
                     name="drkIngredients" 
                     id="drkIngredients"
                     title="Ingredientes de la bebida"
-                    (keypress)="HandleInput($event)"
+                    (keydown)="HandleInput($event)"
                     #ingredientDrink
                 >
                 <datalist id="ingredients">
@@ -81,10 +81,10 @@
                 >
             </div>
             <div class="form-input submit">
-                <input type="submit" [value]="getCodeName ? 'Editar Bebida' : 'Crear Bebida'">
+                <input type="submit" [value]="getCodeName ? 'Editar Bebida' : 'Crear Bebida'" (click)="HandleDrinkSubmit($event)">
             </div>
             <div class="form-delete" *ngIf="getCodeName">
-                <button>Eliminar Bebida</button>
+                <button (click)="HandleDeleteDrink($event)">Eliminar Bebida</button>
             </div>
         </form>
     </div>

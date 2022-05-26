@@ -14,11 +14,11 @@
     </div>
     <div class="switch-case" *ngSwitchCase="'drinks'">
         <div class="card-image">
-            <img src="" [alt]="DrinkData.drink_name">
+            <img src="/assets/img/vasoAgua.jpg" [alt]="DrinkData.drink_name">
         </div>
         <div class="card-data">
             <div class="card-header">
-                <a routerLink="edit" [queryParams]="{ item: DrinkData.drink_name, view: 'drinks' }">{{ DrinkData.drink_name }}</a>
+                <a routerLink="edit" [queryParams]="{ item: DrinkData.drink_name, view: 'drinks' }"><h2>{{ DrinkData.drink_name }}</h2></a>
             </div>
             <div class="card-info">
                 <span>{{ DrinkData.price | currency }}</span>
