@@ -1,0 +1,91 @@
+<div class="wrapper">
+    <div class="form-container" [ngSwitch]="getViewMode.view">
+        <form role="form" *ngSwitchCase="'ingredients'" (ngSubmit)="HandleSumbitIngredient($event)">
+            <div class="form-img" *ngIf="getCodeName">
+                <img src="/assets/img/tomate.jpg" alt="Ingrediente">
+            </div>
+            <div class="form-input">
+                <label for="ingName">Nombre Ingrediente</label>
+                <input 
+                    name="ingName" 
+                    id="ingName" 
+                    type="text" 
+                    placeholder="Nombre..." 
+                    [(ngModel)]="getIngredient.ingredient_name"
+                    title="Nombre del ingrediente"
+                    required
+                >
+            </div>
+            <div class="form-input">
+                <label for="ingPrice">Precio Compra</label>
+                <input 
+                    type="number" 
+                    step="0.01" 
+                    min="0.01" 
+                    name="ingPrice" 
+                    id="ingPrice" 
+                    title="Precio de compra"
+                    [(ngModel)]="getIngredient.bought_price"
+                    required
+                >
+            </div>
+            <div class="form-input submit">
+                <input type="submit" [value]=" !getCodeName ? 'Nuevo Ingrediente' : 'Editar Ingrediente'">
+            </div>
+            <div class="form-delete" *ngIf="getCodeName">
+                <button (click)="HandleDeleteItem($event)">Eliminar Ingrediente</button>
+            </div>
+        </form>
+        <form role="form" *ngSwitchCase="'drinks'">
+            <div class="form-img" *ngIf="getCodeName">
+                <img src="/assets/img/vasoAgua.jpg" alt="Bebida">
+            </div>
+            <div class="form-input">
+                <label for="drkName">Nombre</label>
+                <input 
+                    type="text" 
+                    name="drkName" 
+                    id="drkName"
+                    placeholder="Nombre..."
+                    [(ngModel)]="getDrink.drink_name"
+                    title="Nombre de la bebida"
+                    required
+                >
+            </div>
+            <div class="form-input">
+                <label for="drkIngredients">Ingredientes</label>
+                <input 
+                    list="ingredients" 
+                    type="text" 
+                    name="drkIngredients" 
+                    id="drkIngredients"
+                    title="Ingredientes de la bebida"
+                    (keypress)="HandleInput($event)"
+                    #ingredientDrink
+                >
+                <datalist id="ingredients">
+                    <option *ngFor="let Ingredient of getIngredients"
+                        [value]="Ingredient._id"
+                    >{{ Ingredient.ingredient_name }}</option>
+                </datalist>
+            </div>
+            <div class="form-input">
+                <label for="drkPrice">Precio</label>
+                <input 
+                    type="number"
+                    step="0.01"
+                    min="0.01"
+                    id="drkPrice"
+                    name="drkPrice"
+                    [(ngModel)]="getDrink.price"
+                >
+            </div>
+            <div class="form-input submit">
+                <input type="submit" [value]="getCodeName ? 'Editar Bebida' : 'Crear Bebida'">
+            </div>
+            <div class="form-delete" *ngIf="getCodeName">
+                <button>Eliminar Bebida</button>
+            </div>
+        </form>
+    </div>
+</div>

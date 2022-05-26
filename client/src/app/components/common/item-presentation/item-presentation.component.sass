@@ -1,0 +1,80 @@
+@use "../../../sass/base"
+@import "../../../sass/vars"
+@import "../../../sass/mixins"
+
+.form-container
+    gap: 20px
+    max-width: 400px
+    width: $full-content
+    padding: $padding + 10
+    box-shadow: $generic-shadow
+    border-radius: $border-radius
+    @include set_flex($align-items: center, $justify-content: center)
+
+    .form-img
+        overflow: hidden
+        width: $full-content
+        @include set_flex($justify-content: center, $align-items: center)
+
+        img
+            clip-path: circle()
+            width: inherit
+
+    form
+        gap: 20px
+        @include set_flex($justify-content: center)
+
+
+.form-input
+    width: $full-content
+    @include set_flex($align-items: flex-start)
+
+    label
+        @include text_display(16px, $main-color, $text-transform: uppercase, $font-weight: bold)
+
+    input[type="text"], input[type="number"]
+        outline: none
+        width: $full-content
+        border-radius: $border-radius
+        border-color: transparent transparent $main-color transparent
+        border-style: solid
+        border-width: 1px
+        padding: ($padding + 5) $padding
+        @include text_display($color: $main-color)
+
+        &::placeholder
+            color: #EFEFEF
+    
+    &.submit 
+        @include set_flex($align-items: center, $justify-content: center)
+        input[type="submit"]
+            padding: $padding + 5
+            width: 200px
+            outline: none
+            cursor: pointer
+            border-radius: $border-radius
+            background-color: $main-color
+            transition: $bkGround-transition-out
+            @include text_display($text-transform: uppercase, $color: $white-color, $font-weight: bold)
+
+            &:hover
+                transition: $bkGround-transition-in
+                background-color: $main-color-hover
+.form-delete
+    width: $full-content
+    @include set_flex($justify-content: center, $align-items: center)
+
+    button
+        border: none
+        outline: none
+        cursor: pointer
+        padding: $padding + 5
+        border-radius: $border-radius
+        background-color: $caution-color
+        transition: all 0.2s ease-in-out
+        @include text_display($color: $white-color, $text-transform: uppercase, $font-weight: bold)
+                
+        &:hover
+            transition: all 0.2s ease-in
+            background-color: $caution-color-hover
+            color: $main-color

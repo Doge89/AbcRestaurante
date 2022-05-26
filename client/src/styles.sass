@@ -1,0 +1,26 @@
+@import "./app/sass/vars"
+@import "./app/sass/mixins"
+/* You can add global styles to this file, and also import other style files */
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    -moz-box-sizing: border-box
+    font-family: Arial, sans-serif
+    -webkit-box-sizing: border-box
+
+:host
+    display: block
+
+#app
+    min-height: 100vh
+    position: relative
+    @include set_flex()
+
+#content
+    min-height: 100vh
+    width: $full-content
+
+.wrapper
+    min-height: 100vh
+    @include set_flex($width: $full-content)

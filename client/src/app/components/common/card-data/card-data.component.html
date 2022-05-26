@@ -1,0 +1,28 @@
+<div class="card-data main" [ngSwitch]="CardConfig.view">
+    <div class="switch-case" *ngSwitchCase="'ingredients'">
+        <div class="card-image">
+            <img src="/assets/img/tomate.jpg" [alt]="IngredientData.ingredient_name">
+        </div>
+        <div class="card-data">
+            <div class="card-header">
+                <a routerLink="edit" [queryParams]="{ item: IngredientData.ingredient_name, view: 'ingredients' }"><h2>{{ IngredientData.ingredient_name }}</h2></a>
+            </div>
+            <div class="card-info">
+                <span>{{ IngredientData.bought_price | currency }}MXN</span>
+            </div>
+        </div>
+    </div>
+    <div class="switch-case" *ngSwitchCase="'drinks'">
+        <div class="card-image">
+            <img src="" [alt]="DrinkData.drink_name">
+        </div>
+        <div class="card-data">
+            <div class="card-header">
+                <a routerLink="edit" [queryParams]="{ item: DrinkData.drink_name, view: 'drinks' }">{{ DrinkData.drink_name }}</a>
+            </div>
+            <div class="card-info">
+                <span>{{ DrinkData.price | currency }}</span>
+            </div>
+        </div>
+    </div>
+</div>

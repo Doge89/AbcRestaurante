@@ -1,0 +1,21 @@
+<nav id="nav-bar">
+    <div class="menu-bar">
+        <div class="img-logo">
+            <img src="" alt="logo">
+        </div>
+        <ul class="menu-vertical">
+            <li *ngFor="let Option of getMenu">
+                <div class="option-menu">
+                    <a [routerLink]="Option.link">
+                        <span>
+                            <fa-icon [icon]="Option.icon"></fa-icon>
+                        </span>
+                    </a>
+                    <div class="tooltip {{ Option.toolTip.orientation }}">
+                        <span>{{ Option.toolTip.text }}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

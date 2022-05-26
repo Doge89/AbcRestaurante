@@ -1,0 +1,34 @@
+@import "../../../sass/vars"
+@import "../../../sass/mixins"
+
+.card-data.main
+    box-shadow: $generic-shadow
+    border-radius: $border-radius
+    transition: transform 0.2s ease-in-out
+    transform: translateY(0)
+    @include set_flex($justify-content: center)
+
+    &:hover
+        transition: transform 0.2s ease-in-out
+        transform: translateY(-10px)
+
+.switch-case
+    @include set_flex($justify-content: center)
+
+.card-image
+    background-color: white
+    @include set_flex($justify-content: center)
+    img
+        width: $full-content
+
+.card-data
+    gap: 20px
+    @include set_flex($justify-content: center)
+
+    .card-header
+        @include text_display(18px, $main-color, 0.14mm, $font-weight: initial)
+    
+    .card-info
+        margin-bottom: 20px
+        @include text_display(16px, $color: $main-color)
+

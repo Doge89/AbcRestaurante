@@ -1,0 +1,68 @@
+@import "../../../sass/vars"
+@import "../../../sass/mixins"
+
+#nav-bar
+    top: 0
+    left: 0
+    height: $full-content
+    position: absolute
+
+.menu-bar
+    background-color: $main-color
+    @include set_flex(center, center, $width: $menu-width)
+
+    .img-logo
+        width: $full-content
+        img
+            width: inherit
+
+    .menu-vertical
+        width: inherit
+        list-style-type: none
+        @include set_flex(center, flex-start)
+
+        .option-menu
+            width: $full-content
+            padding: $padding * 3 $padding
+            position: relative
+            cursor: pointer
+            transition: $all-out
+            @include set_flex(center, center)
+            span
+                font-size: $icon-size
+                color: $white-color
+
+            &:hover
+                transition: $all-in
+                background-color: $main-color-hover
+                .tooltip
+                    opacity: 1
+
+            .tooltip
+                top: 25%
+                opacity: 0
+                right: -120%
+                z-index: -1
+                padding: $padding + 5
+                width: $full-content
+                font-size: $font-size
+                border-radius: $border-radius
+                box-shadow: $generic-shadow
+                position: absolute
+                background: $white-color
+                transition: $all-out
+                
+                &::after
+                    right: 100%
+                    border-style: solid
+                    content: ""
+                    border-color: transparent $white-color transparent transparent
+                    border-width: 8px
+                    margin-left: -8px
+                    position: absolute
+                span
+                    @include text_display($font-size: $font-size + 2, $color: $main-color, $font-weight: bold)
+
+
+li
+    width: $full-content

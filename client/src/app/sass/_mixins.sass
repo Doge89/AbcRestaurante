@@ -1,0 +1,22 @@
+@import "./vars"
+
+@mixin set_flex($align-items: center, $justify-content: flex-start, $flex-flow: column nowrap, $width: 100%)
+    width: $width
+    height: 100%
+    display: flex
+    flex-flow: $flex-flow
+    align-items: $align-items
+    justify-content: $justify-content
+    
+@mixin text_display($font-size: 14px, $color: $white-color, $letter-spacing: 0.10mm, $word-spacing: 0.01em, $text-transform: none, $text-decoration: none, $word-break: keep-all, $word-wrap: break-word, $text-rendering: optimizeSpeed, $line-height: 1, $font-weight: normal)
+    font-size: $font-size
+    color: $color
+    letter-spacing: $letter-spacing
+    word-spacing: $word-spacing
+    text-transform: $text-transform
+    text-decoration: $text-decoration
+    word-break: $word-break
+    word-wrap: $word-wrap
+    text-rendering: $text-rendering
+    line-height: $line-height
+    font-weight: $font-weight
