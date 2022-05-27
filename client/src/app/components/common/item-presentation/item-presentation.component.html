@@ -15,6 +15,7 @@
                     title="Nombre del ingrediente"
                     required
                 >
+                <span *ngIf="!getIngredient.ingredient_name">Un nombre no puede ser nulo</span>
             </div>
             <div class="form-input">
                 <label for="ingPrice">Precio Compra</label>
@@ -28,6 +29,7 @@
                     [(ngModel)]="getIngredient.bought_price"
                     required
                 >
+                <span *ngIf="!getIngredient.bought_price">El precio de un producto no puede ser eso</span>
             </div>
             <div class="form-input submit">
                 <input type="submit" [value]=" !getCodeName ? 'Nuevo Ingrediente' : 'Editar Ingrediente'">
@@ -51,6 +53,7 @@
                     title="Nombre de la bebida"
                     required
                 >
+                <span *ngIf="!getDrink.drink_name">Un nombre no puede ser nulo</span>
             </div>
             <div class="form-input">
                 <label for="drkIngredients">Ingredientes</label>
@@ -63,6 +66,7 @@
                     (keydown)="HandleInput($event)"
                     #ingredientDrink
                 >
+                <span *ngIf="getIngredientsIds.length === 0">La bebida debe de tener al menos un ingrediente</span>
                 <datalist id="ingredients">
                     <option *ngFor="let Ingredient of getIngredients"
                         [value]="Ingredient._id"
@@ -79,6 +83,7 @@
                     name="drkPrice"
                     [(ngModel)]="getDrink.price"
                 >
+                <span *ngIf="!getDrink.price">El precio de un producto no puede ser eso</span>
             </div>
             <div class="form-input submit">
                 <input type="submit" [value]="getCodeName ? 'Editar Bebida' : 'Crear Bebida'" (click)="HandleDrinkSubmit($event)">

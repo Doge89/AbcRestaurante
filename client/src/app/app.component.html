@@ -1,6 +1,9 @@
-<div id="app">
-  <navbar></navbar>
+<div id="app" (window:resize)="HandleResize($event)">
+  <navbar *ngIf="windowSize > 768"></navbar>
+  <respnavbar *ngIf="windowSize <= 768"></respnavbar>
   <div id="content">
+  </div>
+  <div id="main">
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -5,16 +5,39 @@
 :host
     display: block
     min-height: 100vh
+.wrapper
+    .create-item
+        &.objects
+            margin: 25px
+            background-color: $main-color
+            box-shadow: $generic-shadow
+            border-radius: $border-radius
+            transition: $bkGround-transition-out
+            &:hover
+                background-color: $main-color-hover
+                transition: $bkGround-transition-in
+            a
+                padding: $padding + 5px
+                @include text_display($font-weight: bold, $text-transform: uppercase)
+
 
 .gallery-card
     gap: 20px
     max-width: 1200px
     width: $full-content
     display: grid
-    grid-template-columns: repeat(3, 350px)
+    grid-template-columns: repeat(3, 300px)
+
+    @media screen and (max-width: 1000px)
+        justify-content: center
+        grid-template-columns: repeat(2, 275px)
 
     @media screen and (max-width: 768px)
-        grid-template-columns: repeat(1, 300px)
+        justify-content: center
+        grid-template-columns: repeat(1, 275px)
+
+.create-item.objects
+    
 
 .no-items
     min-height: 100vh

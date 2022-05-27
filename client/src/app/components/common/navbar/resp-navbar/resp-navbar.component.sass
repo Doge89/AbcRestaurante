@@ -1,0 +1,54 @@
+@import "../../../../sass/vars"
+@import "../../../../sass/mixins"
+
+:host
+    width: $full-content
+
+nav
+    width: inherit
+
+.navbar-resp
+    position: relative
+    background-color: $main-color
+    @include set_flex($justify-content: space-between)
+
+    .menu-header
+        cursor: pointer
+        padding: $padding + 15
+        @include set_flex($justify-content: space-between, $flex-flow: row nowrap)
+        @include text_display(20px)
+
+.menu-main
+    left: 0
+    top: 100%
+    z-index: 1
+    min-height: 100vh
+    position: absolute
+    background-color: $white-color
+    transition: transform 0.35s ease-in-out
+    transform: translateX(-100%)
+    @include set_flex()
+
+    &.active
+        transform: translate(0)
+        background-color: $white-color
+        transition: transform 0.35s ease-in
+
+    ul
+        list-style-type: none
+        @include set_flex()
+
+        li
+            padding: $padding
+            width: inherit
+            .resp-option
+                gap: 20px
+                width: $full-content
+                @include set_flex($flex-flow: row nowrap)
+                .opt-icon
+                    span
+                        color: $main-color
+                        font-size: $icon-size
+                .resp-text
+                    a
+                        @include text_display($color: $main-color, $font-weight: bold, )

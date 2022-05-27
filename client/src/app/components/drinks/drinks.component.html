@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="create-item">
+    <div class="create-item objects">
         <a routerLink="create" [queryParams]="{ view: 'drinks' }"><h2>Nueva Bebida</h2></a>
     </div>
     <div class="gallery-card">
@@ -8,11 +8,11 @@
             [cardConfig]="{ view: 'drinks' }"
         ></common-carddata>
     </div>
-    <div class="no-items">
+    <div class="no-items"  *ngIf="getDrinks.length === 0">
       <div class="img-noitems">
 
       </div>
-      <div class="create-item" *ngIf="getDrinks.length === 0">
+      <div class="create-item">
           <a routerLink="create" [queryParams]="{ view: 'drinks' }">Nueva Bebida</a>
         </div>  
     </div>

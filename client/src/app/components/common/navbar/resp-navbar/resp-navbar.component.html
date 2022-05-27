@@ -1,0 +1,30 @@
+<div class="navbar-resp" (click)="HandleMenuActivation($event)">
+    <div class="menu-header">
+        <div class="menu-text">
+            <span>Menu</span>
+        </div>
+        <div class="menu-icon">
+            <span>
+                <fa-icon [icon]="MenuIcon"></fa-icon>
+            </span>
+        </div>
+    </div>
+    <div class="menu-main {{ isMenuActive ? 'active' : null }}" #menuMain>
+        <nav role="navigation">
+            <ul>
+                <li *ngFor="let Option of MenuNavBar">
+                    <div class="resp-option">
+                        <div class="opt-icon">
+                            <span>
+                                <fa-icon [icon]="Option.icon" ></fa-icon>
+                            </span>
+                        </div>
+                        <div class="resp-text">
+                            <a [routerLink]="Option.link">{{ Option.toolTip.text }}</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

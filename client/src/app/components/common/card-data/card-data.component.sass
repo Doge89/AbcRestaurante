@@ -23,10 +23,14 @@
 
 .card-data
     gap: 20px
+    overflow: hidden
+    border-radius: 8px
+    background-color: $white-color
     @include set_flex($justify-content: center)
 
     .card-header
-        @include text_display(18px, $main-color, 0.14mm, $font-weight: initial)
+        a
+            @include text_display(18px, $main-color, 0.14mm, $font-weight: bold)
     
     .card-info
         margin-bottom: 20px

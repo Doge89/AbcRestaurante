@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'client';
+  title = 'Restaurante';
+
+  public windowSize: number = NaN;
+
+  public HandleResize($event: Event): void {
+    $event.preventDefault();
+    this.windowSize = window.innerWidth;
+  }
+
 }

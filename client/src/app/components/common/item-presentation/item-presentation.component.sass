@@ -2,6 +2,9 @@
 @import "../../../sass/vars"
 @import "../../../sass/mixins"
 
+.wrapper
+    justify-content: center
+
 .form-container
     gap: 20px
     max-width: 400px
@@ -9,6 +12,7 @@
     padding: $padding + 10
     box-shadow: $generic-shadow
     border-radius: $border-radius
+    background-color: $white-color
     @include set_flex($align-items: center, $justify-content: center)
 
     .form-img
@@ -44,7 +48,10 @@
 
         &::placeholder
             color: #EFEFEF
-    
+
+    span
+        @include text_display($color: red, $font-weight: bold)
+
     &.submit 
         @include set_flex($align-items: center, $justify-content: center)
         input[type="submit"]

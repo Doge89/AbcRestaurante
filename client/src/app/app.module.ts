@@ -17,6 +17,7 @@ import { DrinksComponent } from './components/drinks/drinks.component';
 import { CardDataComponent } from './components/common/card-data/card-data.component';
 import { ItemPresentationComponent } from './components/common/item-presentation/item-presentation.component';
 import { DrinksModule } from './routes/drinks/drinks.module';
+import { RespNavbarComponent } from './components/common/navbar/resp-navbar/resp-navbar.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DrinksModule } from './routes/drinks/drinks.module';
     IngredientsComponent,
     DrinksComponent,
     CardDataComponent,
-    ItemPresentationComponent
+    ItemPresentationComponent,
+    RespNavbarComponent
   ],
   imports: [
     BrowserModule,

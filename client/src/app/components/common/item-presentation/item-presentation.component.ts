@@ -77,6 +77,8 @@ export class ItemPresentationComponent implements OnInit {
   public HandleSumbitIngredient(e: SubmitEvent): void{
     console.info(this.Ingredient);
     e.preventDefault();
+    if(!this.Ingredient.ingredient_name) return alert("El ingrediente debe de tener un nombre");
+    if(!this.Ingredient.bought_price) return alert("El ingrediente debe de tener un precio")
     if(!this.getCodeName)
       this.IngredientService.CreateIngredient(this.Ingredient).subscribe(response => {
         console.log(response)
@@ -101,6 +103,9 @@ export class ItemPresentationComponent implements OnInit {
 
   public HandleDrinkSubmit($event: MouseEvent): void {
     $event.preventDefault();
+    if(!this.Drink.drink_name) return alert("La bebida debe de tener un nombre");
+    if(!this.Drink.price) return alert("La bebida debe de tener un precio");
+    if(this.getIngredientsIds.length === 0) return alert("La bebida debe de tener por lo menos un ingrediente")
     if(!this.getCodeName){
       this.DrinkService.CreateDrink(this.getDrink, this.IngredientsIds).subscribe(response => {
         if(!response.ok) throw new Error(`Status Code: ${response.status}, Message: ${response.statusText}`);
