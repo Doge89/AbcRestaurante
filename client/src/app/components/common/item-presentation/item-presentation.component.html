@@ -66,7 +66,7 @@
                     (keydown)="HandleInput($event)"
                     #ingredientDrink
                 >
-                <span *ngIf="getIngredientsIds.length === 0">La bebida debe de tener al menos un ingrediente</span>
+                <span *ngIf="getIngredientsIds.length === 0 && getDrink.ingredients.length === 0">La bebida debe de tener al menos un ingrediente</span>
                 <datalist id="ingredients">
                     <option *ngFor="let Ingredient of getIngredients"
                         [value]="Ingredient._id"

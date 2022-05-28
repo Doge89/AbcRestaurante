@@ -35,8 +35,8 @@ KitchenRouter.get("/", async(req, res, next) => {
 
 KitchenRouter.get("/ingredients", async(req, res, next) => {
     if(req.method !== "GET") return res.status(WrongHttpMethod).code.json({ ...WrongHttpMethod }).end();
-    const Drinks = await RestaurantKitchen.GetDrinks();
-    return res.status(200).json([...Drinks]).end();
+    const Drinks = await RestaurantKitchen.GetIngredients()
+    return res.status(200).json(Drinks).end();
 })
 
 KitchenRouter.get("/get/:item", async(req, res, next) => {
@@ -65,6 +65,15 @@ KitchenRouter.post("/createMeal", async(req, res, next) => {
     }
     const newIngredient = await FoodRestaurant.CreateMeal(meal);
     return res.status(201).json({ ...newIngredient._doc }).end();
+});
+
+KitchenRouter.post("/newIngredient", async(req, res, next) => {
+    if(req.method !== "POST") return res.status(WrongHttpMethod.code).json({ ...WrongHttpMethod }).end();
+    const data = { ...req.body };
+    if(!data) return res.status(InvalidRequest.code).json({ ...InvalidRequest }).end();
+    delete data._id;
+    const newIngredient = await RestaurantKitchen.AddNewIngredient(data)
+    return res.status(201).json({ ...newIngredient._doc }).end()
 });
 
 //*PUT REQUESTS

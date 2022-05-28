@@ -10,7 +10,7 @@ import { Ingredient } from 'src/app/typescript/interfaces/kitchen';
 })
 export class IngredientsComponent implements OnInit {
 
-  private Ingredients: Ingredient[] = [];
+  public Ingredients: Ingredient[] = [];
   set setIngredient(v: Ingredient[]){
     this.Ingredients.push(...v);
   }
@@ -23,11 +23,8 @@ export class IngredientsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.IngredientService.GetDrinks().subscribe(response => {
-      console.info(response)
-      this.setIngredient = response
-    });
-    console.log(this.getIngredients)
+    this.IngredientService.GetDrinks().subscribe(response => { console.log(response) ;this.Ingredients = response; return });
+    console.log(this.Ingredients)
   }
 
 }

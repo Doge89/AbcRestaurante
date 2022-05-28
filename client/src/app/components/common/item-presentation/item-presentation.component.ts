@@ -73,7 +73,7 @@ export class ItemPresentationComponent implements OnInit {
     if(this.ViewMode.view === "drinks") this.IngredientService.GetDrinks().subscribe(response => { this.Ingredients = [...response] });
     if(!this.CodeName) return;
     if(this.ViewMode.view === "drinks"){
-      this.DrinkService.GetOneDrink(this.CodeName).subscribe(response => { this.setDrink = response });
+      this.DrinkService.GetOneDrink(this.CodeName).subscribe(response => { this.setDrink = response; console.log(this.Drink) });
       return;
     }
     if(this.ViewMode.view === "meals"){
@@ -115,7 +115,7 @@ export class ItemPresentationComponent implements OnInit {
     $event.preventDefault();
     if(!this.Drink.drink_name) return alert("La bebida debe de tener un nombre");
     if(!this.Drink.price) return alert("La bebida debe de tener un precio");
-    if(this.getIngredientsIds.length === 0) return alert("La bebida debe de tener por lo menos un ingrediente")
+    if(this.getIngredientsIds.length === 0 && this.getDrink.ingredients.length === 0) return alert("La bebida debe de tener por lo menos un ingrediente")
     if(!this.getCodeName){
       this.DrinkService.CreateDrink(this.getDrink, this.IngredientsIds).subscribe(response => {
         if(!response.ok) throw new Error(`Status Code: ${response.status}, Message: ${response.statusText}`);
