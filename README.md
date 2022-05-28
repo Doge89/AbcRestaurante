@@ -44,3 +44,6 @@ La diferencia esta en que el dev usted estara en modo debugging mientras que el 
     npm start
 ```
 De esta forma se ejecutara el servidor en *localhost:4200*
+
+#Notas
+Si desas agrear un ingrediente en las bebidas Deberas Oprimir Shift
