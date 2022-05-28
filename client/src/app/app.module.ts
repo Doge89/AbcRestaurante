@@ -18,6 +18,8 @@ import { CardDataComponent } from './components/common/card-data/card-data.compo
 import { ItemPresentationComponent } from './components/common/item-presentation/item-presentation.component';
 import { DrinksModule } from './routes/drinks/drinks.module';
 import { RespNavbarComponent } from './components/common/navbar/resp-navbar/resp-navbar.component';
+import { MealsModule } from './routes/meals/meals.module';
+import { IndexComponent } from './components/index/index.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { RespNavbarComponent } from './components/common/navbar/resp-navbar/resp
     DrinksComponent,
     CardDataComponent,
     ItemPresentationComponent,
-    RespNavbarComponent
+    RespNavbarComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { RespNavbarComponent } from './components/common/navbar/resp-navbar/resp
     RouterModule,
     FontAwesomeModule,
     FormsModule,
-    DrinksModule
+    DrinksModule,
+    MealsModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

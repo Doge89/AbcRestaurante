@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="create-item objects">
+    <div class="create-item objects" *ngIf="getIngredients.length !== 0">
         <a routerLink="create" [queryParams]="{ view: 'ingredients' }"><h2>Nuevo Ingrediente</h2></a>
     </div>
     <div class="gallery-card" *ngIf="getIngredients.length !== 0">

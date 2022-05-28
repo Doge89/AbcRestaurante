@@ -25,4 +25,17 @@
             </div>
         </div>
     </div>
+    <div class="switch-case" *ngSwitchCase="'meals'">
+        <div class="card-image">
+            <img src="/assets/img/ensalada.jpg" [alt]="MealData.meal_detail.meal">
+        </div>
+        <div class="card-data">
+            <div class="card-header">
+                <a routerLink="edit" [queryParams]="{ item: MealData.meal_detail.meal, view: 'meals' }"><h2>{{ MealData.meal_detail.meal }}</h2></a>
+            </div>
+            <div class="card-info">
+                <span>{{ MealData.meal_detail.price | currency }}</span>
+            </div>
+        </div>
+    </div>
 </div>

@@ -24,7 +24,7 @@ export class IngredientsService {
    */
   public GetDrinks(): Observable<Ingredient[]>{
     let Headers = this.FnGeneric.CreateHeaders();
-    return this.Http.get<Ingredient[]>(`${SERVER_HOST}${this._kitchen}/`, { headers: Headers, withCredentials: true, observe: "body" });
+    return this.Http.get<Ingredient[]>(`${SERVER_HOST}${this._kitchen}/ingredients`, { headers: Headers, withCredentials: true, observe: "body" });
   }
 
   /**

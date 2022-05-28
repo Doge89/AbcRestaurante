@@ -24,9 +24,7 @@ const MealTypeSchema = new mongoose.Schema({
 const MenuMealSchema = new mongoose.Schema({
     meal_detail: {
         meal: { type: String, required: true, index: { minlength: 1, maxlength: 255 } },
-        meal_type: { type: mongoose.Types.ObjectId, required: true, indexes: { minlength: 24 } },
         price: { type: Number, required: true, index: { min: 1, max: 99999.99 }  },
-        ingredients: [ mongoose.Types.ObjectId ]
     }
 });
 
@@ -52,7 +50,7 @@ const MenuRequestSchema = new mongoose.Schema({
 const IngredientModel = mongoose.model("ingredients", IngredientSchema);
 const MealTypeModel = mongoose.model("meal_type", MealTypeSchema);
 const MenuModel = mongoose.model("restaurant_menu", MenuMealSchema);
-const DrinkMenuModel = mongoose.model("drink_menu", DrinkMenuSchema);
+const DrinkMenuModel = mongoose.model("drink_menus", DrinkMenuSchema);
 const MenuRequestModel = mongoose.model("menu_request", MenuRequestSchema);
 
 module.exports = {

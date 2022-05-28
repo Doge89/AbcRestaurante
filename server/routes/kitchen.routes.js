@@ -2,7 +2,7 @@
 const express = require("express");
 
 //*Class imports
-const { Kitchen } = require("../classes/restaurant");
+const { Kitchen, Restaurant } = require("../classes/restaurant");
 
 //*Errors
 const {
@@ -17,6 +17,7 @@ const KitchenRouter = express.Router();
 
 //*Variables
 const RestaurantKitchen = new Kitchen();
+const FoodRestaurant = new Restaurant();
 
 //*Routes Use
 KitchenRouter.use("/drink", DrinkRouter);
@@ -27,9 +28,16 @@ KitchenRouter.use("/drink", DrinkRouter);
  */
 KitchenRouter.get("/", async(req, res, next) => {
     if(req.method !== "GET") return res.status(WrongHttpMethod.code).json({ ...WrongHttpMethod }).end();
-    const Ingredients = await RestaurantKitchen.GetIngredients();
-    return res.status(200).json([...Ingredients]).end();
+    const Menu = await RestaurantKitchen.GetMenu();
+    const Drinks = await RestaurantKitchen.GetDrinks();
+    return res.status(200).json({ drink_menu: [ ...Drinks ], meals: [ ...Menu ] }).end();
 });
+
+KitchenRouter.get("/ingredients", async(req, res, next) => {
+    if(req.method !== "GET") return res.status(WrongHttpMethod).code.json({ ...WrongHttpMethod }).end();
+    const Drinks = await RestaurantKitchen.GetDrinks();
+    return res.status(200).json([...Drinks]).end();
+})
 
 KitchenRouter.get("/get/:item", async(req, res, next) => {
     if(req.method !== "GET") return res.status(WrongHttpMethod.code).json({ ...WrongHttpMethod }).end();
@@ -45,12 +53,17 @@ KitchenRouter.get("/get/:item", async(req, res, next) => {
 KitchenRouter.get("/drinks");
 
 //*POST REQUESTS
-KitchenRouter.post("/newIngredient", async(req, res, next) => {
+KitchenRouter.post("/createMeal", async(req, res, next) => {
     if(req.method !== "POST") return res.status(WrongHttpMethod.code).json({ ...WrongHttpMethod }).end();
-    const Data = { ingredient_name: req.body.ingredient_name, bought_price: req.body.bought_price };
-    console.log(Data)
+    const Data = { ...req.body };
     if(!Data) return res.status(InvalidRequest.code).json({ ...InvalidRequest }).end();
-    const newIngredient = await RestaurantKitchen.AddNewIngredient(Data);
+    const meal = {
+        meal_detail: {
+            meal: Data.meal_detail.meal,
+            price: Data.meal_detail.price
+        }
+    }
+    const newIngredient = await FoodRestaurant.CreateMeal(meal);
     return res.status(201).json({ ...newIngredient._doc }).end();
 });
 

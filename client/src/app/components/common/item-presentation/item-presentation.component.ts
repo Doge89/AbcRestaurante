@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 
 import { IngredientsService } from 'src/app/services/ingredients/ingredients.service';
 import { Ingredient } from 'src/app/typescript/interfaces/kitchen';
-import { DrinkMenu } from 'src/app/typescript/interfaces/menu';
+import { DrinkMenu, MenuMeal } from 'src/app/typescript/interfaces/menu';
 
 import { CardConfig } from "src/app/typescript/interfaces/kitchen"
 import { DrinksService } from 'src/app/services/drinks/drinks.service';
+import { ReceptionService } from 'src/app/services/restaurant/reception.service';
 
 @Component({
   selector: 'app-item-presentation',
@@ -48,17 +49,22 @@ export class ItemPresentationComponent implements OnInit {
   set setIngredientsToDrink(v: Ingredient){ this.IngredientsToDrink.push(v); }
   get getIngredientsToDrink(): Ingredient[]{ return this.IngredientsToDrink; }
 
+  private Meal: MenuMeal = { meal_detail: { ingredients: [], meal: "", price: NaN } };
+  get getMeal(){ return this.Meal; }
+  set setMeal(v: MenuMeal){ this.Meal = { ...v } }
+
   constructor(
     private Route: ActivatedRoute,
     private IngredientService: IngredientsService,
-    private DrinkService: DrinksService
+    private DrinkService: DrinksService,
+    private ReceptionService: ReceptionService
   ) { }
 
   ngOnInit(): void {
     const params = this.Route.queryParams
     const subParam = params.subscribe(queryParam => {
       //if(!queryParam['view']) location.replace("/ingredient");
-      this.setViewMode = { view: queryParam['view'] === "ingredients" ? "ingredients" : "drinks" };
+      this.setViewMode = { view: queryParam['view'] === "ingredients" ? "ingredients" : queryParam['view'] === 'drinks' ? "drinks" : "meals" };
       const idItem: string | undefined = queryParam['item'];
       if(idItem !== undefined) this.setCodeName = idItem
     });
@@ -68,6 +74,10 @@ export class ItemPresentationComponent implements OnInit {
     if(!this.CodeName) return;
     if(this.ViewMode.view === "drinks"){
       this.DrinkService.GetOneDrink(this.CodeName).subscribe(response => { this.setDrink = response });
+      return;
+    }
+    if(this.ViewMode.view === "meals"){
+      this.ReceptionService.GetOneMeal(this.CodeName).subscribe(response => {this.setMeal = response; console.log(this.Meal) });
       return;
     }
     this.IngredientService.GetOneIngredient(this.CodeName).subscribe(Ingredient => { console.info(Ingredient); this.Ingredient = { ...Ingredient } })
@@ -120,6 +130,22 @@ export class ItemPresentationComponent implements OnInit {
 
   }
 
+  public HandleMealSubmit($event: SubmitEvent): void {
+    $event.preventDefault();
+    if(!this.Meal.meal_detail.meal) return alert("Un platillo debe de tener nombre");
+    if(!this.Meal.meal_detail.price) return alert("El platillo debe de tener un precio");
+    if(!this.getCodeName){
+      this.ReceptionService.CreateMeal(this.Meal).subscribe(response => {
+        if(!response.ok) throw new Error(`Status Code: ${response.status}, Message: ${response.statusText}`);
+      })
+      return location.replace("/")
+    }
+    this.ReceptionService.UpdateMeal(this.getMeal, this.getMeal._id || "").subscribe(response => {
+      if(!response.ok) throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
+      return location.replace("/")
+    })
+  }
+
   public HandleDeleteDrink($event: MouseEvent): void{
     $event.preventDefault();
     if(!confirm("¿Estas seguro de borrar esta bebida?")) return;
@@ -127,6 +153,15 @@ export class ItemPresentationComponent implements OnInit {
       if(!response.ok) throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
       return location.replace("/drinks")
     })
+  }
+
+  public HandleDeleteMeal($event: MouseEvent): void {
+    $event.preventDefault();
+    if(!confirm("¿Estas seguro de que borrar este platillo?")) return;
+    this.ReceptionService.DeleteMeal(this.getMeal._id || "").subscribe(response => {
+      if(!response.ok) throw new Error(`Status: ${response.status}, Message: ${response.statusText}`);
+    })
+    return location.replace("/");
   }
 
   public HandleInput($event: KeyboardEvent): void{

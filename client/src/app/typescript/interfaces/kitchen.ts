@@ -8,5 +8,5 @@ export interface Ingredient{
 
 
 export interface CardConfig{
-    view: "ingredients" | "drinks"
+    view: "ingredients" | "drinks" | "meals"
 }

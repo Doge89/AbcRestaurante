@@ -36,6 +36,50 @@ class Restaurant {
         return newMealType;
     }
 
+    /**
+     * Create a new dish
+     * @param {*} data The data to create 
+     * @returns 
+     *  The created meal
+     */
+    async CreateMeal(data){
+        const newMeal = new MenuModel({ 
+            meal_detail: {
+                meal: data.meal_detail.meal,
+                price: data.meal_detail.price
+            }
+         });
+        await newMeal.save();
+        return newMeal;
+    }
+
+    /**
+     * Get one dish
+     * @param {string} name The name of the dish 
+     * @returns 
+     *  The dish matched with the query
+     */
+    async GetOneMeal(name){
+        const Meal = await MenuModel.findOne({ "meal_detail.meal": name }).exec();
+        return Meal;
+    }
+
+    async UpateMeal(id, data){
+        const updatedMeal = await MenuModel.findByIdAndUpdate(id, { ...data }).exec();
+        return updatedMeal;
+    }
+
+    /**
+     * Find and remove the document given an id
+     * @param {string} id The id of the object
+     * @returns
+     *  The document deleted
+     */
+    async DeleteMeal(id){
+        const deletedDocument = await MenuModel.findByIdAndRemove(id).exec();
+        return deletedDocument;
+    }
+
 }
 
 /**

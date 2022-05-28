@@ -54,4 +54,27 @@ IndexRouter.post("/createMeal", async(req, res, next) => {
     // const 
 });
 
+IndexRouter.get("/:item", async(req, res, next) => {
+    if(req.method !== "GET") return res.status(WrongHttpMethod.code).json({ ...WrongHttpMethod }).end();
+    console.log(req.params.item)
+    const Item = await FoodRestaurant.GetOneMeal(req.params.item);
+    console.log(Item)
+    return res.status(200).json({ ...Item._doc }).end()
+})
+
+IndexRouter.put("/edit", async(req, res, next) => {
+    if(req.method !== "PUT") return res.status(WrongHttpMethod.code).json({ ...WrongHttpMethod }).end();
+    const data = { ...req.body };
+    if(!data) return res.status(InvalidRequest.code).json({ ...InvalidRequest }).end();
+    const updatedMeal = await FoodRestaurant.UpateMeal(data._id, data.menu_detail);
+    return res.status(200).json({ ...updatedMeal }).end();
+})
+
+IndexRouter.delete("/delete/:id", async(req, res, next) => {
+    if(req.method !== "DELETE") return res.status(WrongHttpMethod.code).json({ ...WrongHttpMethod }).end();
+    if(!req.params.id) return res.status(InvalidRequest.code).json({ ...InvalidRequest }).end();
+    const deletedElement = await FoodRestaurant.DeleteMeal(req.params.id);
+    return res.status(200).json({ ...deletedElement }).end()
+})
+
 module.exports = IndexRouter;

@@ -11,8 +11,8 @@ import { Ingredient } from 'src/app/typescript/interfaces/kitchen';
 export class IngredientsComponent implements OnInit {
 
   private Ingredients: Ingredient[] = [];
-  set setIngredient(v: Ingredient){
-    this.Ingredients.push(v);
+  set setIngredient(v: Ingredient[]){
+    this.Ingredients.push(...v);
   }
   get getIngredients(): Ingredient[]{
     return this.Ingredients;
@@ -25,9 +25,9 @@ export class IngredientsComponent implements OnInit {
   ngOnInit(): void {
     this.IngredientService.GetDrinks().subscribe(response => {
       console.info(response)
-      response.forEach(ingredient => { this.Ingredients.push(ingredient) });
+      this.setIngredient = response
     });
-    
+    console.log(this.getIngredients)
   }
 
 }

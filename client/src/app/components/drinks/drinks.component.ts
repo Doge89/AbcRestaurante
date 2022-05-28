@@ -12,10 +12,9 @@ import { DefinitionTypes } from 'src/app/typescript/classes/generic';
 export class DrinksComponent implements OnInit {
 
   private Drinks: DrinkMenu[] = [];
-  set setDrinks(v: DrinkMenu | DrinkMenu[]){
-    if(DefinitionTypes.ObjectIsDrink(v)){ this.Drinks.push(v); return }
+  set setDrinks(v:DrinkMenu[]){
     this.Drinks.push(...v);
-    return;
+
   }
   get getDrinks(): DrinkMenu[]{ return this.Drinks; }
 
@@ -25,7 +24,6 @@ export class DrinksComponent implements OnInit {
 
   ngOnInit(): void {
     this.DrinkService.GetDrinks().subscribe(response => { this.setDrinks = response; })
-    
   }
 
 }

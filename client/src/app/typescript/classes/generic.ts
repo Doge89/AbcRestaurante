@@ -1,5 +1,5 @@
 import { HttpHeaders } from "@angular/common/http";
-import { DrinkMenu } from "../interfaces/menu";
+import { DrinkMenu, MenuMeal } from "../interfaces/menu";
 
 /**
  * Contains a set of generic functions to perform general tasks
@@ -34,4 +34,13 @@ export class DefinitionTypes{
             Object.prototype.hasOwnProperty.call(obj, "price")
         ;
     }
+
+    /**
+     * Define if the object is from menu meal definition
+     * @param obj An object
+     */
+    public static ObjectIsMenuMeal(obj: unknown): obj is MenuMeal{
+        return Object.prototype.hasOwnProperty.call(obj, "menu_detail");
+    }
+
 }

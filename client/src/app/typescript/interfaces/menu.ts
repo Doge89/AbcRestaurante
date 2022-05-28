@@ -32,6 +32,7 @@ export interface DrinkMenu{
  * Contains the menu of dishes in the restaurant
  */
 export interface MenuMeal{
+    _id?: string;
     /**
      * The details of the dish
      */
@@ -43,7 +44,7 @@ export interface MenuMeal{
         /**
          * The type
          */
-        meal_type: string;
+        meal_type?: string;
         /**
          * The price
          */

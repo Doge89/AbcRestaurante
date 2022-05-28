@@ -31,6 +31,7 @@ export class CardDataComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.DrinkData)
   }
 
 }
